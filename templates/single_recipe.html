@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %} {{recipedata[1]}} | Recipe App{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <h1>{{recipedata}}</h1>
+    <div class="card">
+        <div class="card-header bg-success text-light">
+            <div class="card-title text-center">
+                <h4>{{ recipedata[1] }}</h4>
+                <h6>{{ recipedata[7] }}</h6>
+            </div>
+        </div>        
+            
+        <div class="card-body">
+            <p class="card-text">
+                Ingredients: {{ recipedata[2] }}
+            </p>
+
+            <p class="card-text">
+                Instructions: {{ recipedata[3] }}
+            </p>            
+        </div>
+
+        <div class="card-footer bg-secondary text-white">
+            <p class="card-text">
+                <span>Cooking Time: {{ recipedata[4] }}, Servings: {{ recipedata[6] }}</span>                
+            </p>
+        </div>
+
+        <div class="card-footer bg-light">
+            <h5>Comments</h5>
+            <form method="POST">
+                {% for comment in comments_data %}
+                <!-- hidden values -->
+                <input type="hidden" name="user_id" value="{{ comment.user_id}}">  
+                <input type="hidden" name="recipe_id" value="{{ comment.recipe_id }}">
+                {% endfor %}
+                <textarea name="usercomment" id="usercomment" placeholder="Comment your thoughts"></textarea>
+                <input type="submit" value="Comment">
+                
+            </form>
+
+        </div>
+        
+    </div>
+
+    
+</div>
+
+
+{% endblock %}

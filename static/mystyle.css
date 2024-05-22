@@ -1,0 +1,68 @@
+
+.header-container {
+    background-image: url("./images/header-bg.jpg");
+    min-height: 15rem;
+    background-size: cover;
+    background-position: center center;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    box-shadow: 20px 0px 50px grey;
+}
+
+.header h2 {
+    text-shadow: 10px 10px 20px #272827;
+    font-size: 3rem;
+    color: white;
+    background-color: rgba(rgb(62, 62, 62), 0.25);    
+    padding: 1px 5px;
+}
+
+.header p {
+    font-size: 1.5rem;
+    text-shadow: 5px 5px 10px #272827;
+    color: #ffffff;
+    background-color: rgba(42, 41, 41, 0.5);
+    padding: 1px 5px;
+    text-align: justify;
+}
+
+
+/* All Recipes */
+
+.card-box .card {    
+    box-shadow: 20px 0px 50px grey;
+}
+
+.card-box .card:hover{
+    box-shadow: 5px 0px 50px rgb(7, 7, 7);
+    transition: 0.8ms ease-in;
+}
+
+.register-container {
+    border: 0.5px solid black;
+    border-radius: 2%;
+    padding: 5rem;
+    margin: 2rem;
+    box-shadow: 5px 0px 50px rgb(7, 7, 7);
+}
+
+.content-box {
+    width: 100%;
+}
+
+.content-box .recipe-box {
+    width: 60%;
+}
+
+.content-box .recipe-form {
+    width: 40%;
+}
+
+.recipe-list .recipe-card {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    /* Add more styling rules as needed */
+}

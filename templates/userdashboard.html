@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% block title %} User Dashboard | Recipe App {% endblock %}
+
+{% block content %}
+
+<div class="userdash-header d-flex justify-content-between px-5 my-4 border-bottom border-success=subtle">
+    <div class="salute">
+        <h4>USER DASHBOARD</h4>
+        <h6>Welcome {{ data [1] }}</h6>
+    </div>  
+    
+    <div class="profile-options d-flex align-items-center">
+        <h6 class="px-3">{{ data[2] }}</h6>
+        <a href="/logout" class="px-3"><button class="btn btn-danger">Logout</button></a>
+    </div>
+</div>
+
+<div class="content-box d-flex">
+    <div class="recipe-box m-2 p-2">
+        <h3 class="text-center">See Recipes</h3>
+        <select id="recipeCategory" class="form-select" aria-label="Default_select" style="max-width: 25%;">
+            <option selected><em>--- Choose category</em></option>
+            <option value="All">All Recipes</option>
+            <option value="Breakfast">Breakfast</option>
+            <option value="Lunch">Lunch</option>
+            <option value="Dinner">Dinner</option>
+            <option value="Dessert">Dessert</option>
+        </select>            
+
+        <div id="recipeList"></div>
+    </div>
+
+    <div class="recipe-form m-2 p-2 border border-primary-muted">
+        <h4 class="text-center">Add a New Recipe</h4>
+        <form>
+            <div class="form-group">
+                <div class="form-floating mb-3">
+                    <input type="text" name="recipe_name" class="form-control" id="floatingInputRecipeName" placeholder="Recipe Name" required>
+                    <label for="floatingInputRecipeName">Enter Recipe Name</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-floating mb-3">
+                    <textarea class="form-control" name="ingredients" placeholder="Enter Ingredients" id="floatingTextareaIngredients"></textarea>
+                    <label for="floatingTextareaIngredients">Enter Ingredients</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-floating mb-3">
+                    <textarea class="form-control" name="instructions" placeholder="Enter Instructions" id="floatingTextareaInstructions"></textarea>
+                    <label for="floatingTextareaInstructions">Enter Instructions</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-floating mb-3">
+                    <input type="text" name="duration" class="form-control" id="floatingInputDuration" placeholder="Duration" required>
+                    <label for="floatingInputDuration">Enter Duration</label>
+                </div>
+            </div>
+            
+            <input type="hidden" name="userid" value="{{ data[0] }}">
+
+            <div class="form-group">
+                <div class="form-floating mb-3">
+                    <input type="text" name="servings" class="form-control" id="floatingInputServings" placeholder="Recipe Serving Size" required>
+                    <label for="floatingInputServings">Enter Serving Size</label>
+                </div>
+            </div>
+
+            <div class="form-group text-center">
+                <input type="reset" value="Clear" class="btn btn-warning">
+                <input type="submit" value="Save" id="save-button" class="btn btn-success">
+            </div>
+    </div>
+</div>
+
+<script>
+    const recipeCategorySelect = document.getElementById('recipeCategory');
+    const recipeListDiv = document.getElementById('recipeList');
+
+    recipeCategorySelect.addEventListener('change', async () => {
+    const selectedCategory = recipeCategorySelect.value;
+
+    const response = await fetch(`/categoryrecipes?category=${selectedCategory}`);
+    const recipes = await response.json();
+    
+    // console.log(JSON.stringify(recipes));
+    // console.log(JSON.stringify(recipes, null, 2)); This is same as above, but styles=d.. 2 is for indent
+
+    // Clear existing content in recipeListDiv
+    recipeListDiv.innerHTML = '';
+
+    // Create recipe cards and append them to recipeListDiv
+    recipes.forEach(recipe => {
+        // console.log(JSON.stringify(recipes));
+        const recipeCard = document.createElement('div');
+        recipeCard.classList.add('recipe-card', 'card', 'd-flex', 'flex-column', 'm-3'); // Add appropriate CSS class
+
+        const recipeCardTitle = document.createElement('div');
+        recipeCardTitle.classList.add('card-title', 'card-header', 'bg-success', 'text-white', 'text-center');
+        
+        const recipeName = document.createElement('h3')
+        recipeName.textContent = `${recipe[1]}`;
+
+        const recipeCardBody = document.createElement('div');
+        recipeCardBody.classList.add('card-body');
+
+        const recipeIngredients = document.createElement('h5')
+        recipeIngredients.textContent = `Ingredients: ${recipe[2]}`;
+
+        const recipeInstructions = document.createElement('h5')
+        recipeInstructions.textContent = `Instructions: ${recipe[3]}`;
+
+        const recipeDuration = document.createElement('p')
+        recipeDuration.textContent = `Duration: ${recipe[4]}`;
+
+        const recipeServing = document.createElement('p')
+        recipeServing.textContent = `Servings: ${recipe[5]}`;
+
+        const recipeCardFooter = document.createElement('div')
+        recipeCardFooter.classList.add('card-footer', 'bg-muted', 'text-end')
+
+        const recipeCategory = document.createElement('h6')
+        recipeCategory.textContent = `Category: ${recipe[7]}`;
+
+        const viewRecipeButton = document.createElement('button');
+        viewRecipeButton.classList.add('btn', 'btn-info')
+        viewRecipeButton.textContent = 'View Recipe';
+        const recipeUrl = `/single_recipe/${recipe[0]}`;
+
+        viewRecipeButton.addEventListener('click', () => {
+        window.location.href = recipeUrl;
+        });
+        
+
+        recipeListDiv.appendChild(recipeCard);
+        recipeCard.appendChild(recipeCardTitle);
+        recipeCardTitle.appendChild(recipeName)
+        recipeCard.appendChild(recipeCardBody);
+        recipeCardBody.appendChild(recipeIngredients);
+        recipeCardBody.appendChild(recipeInstructions);
+        recipeCardBody.appendChild(recipeDuration)
+        recipeCardBody.appendChild(recipeServing)
+        recipeCard.appendChild(recipeCardFooter)
+        recipeCardFooter.appendChild(recipeCategory)
+        recipeCardFooter.appendChild(viewRecipeButton);
+
+
+    });
+
+    });
+</script>
+
+
+{% endblock %}

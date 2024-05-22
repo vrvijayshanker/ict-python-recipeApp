@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}HomePage | The Happy Plate{% endblock %}
+
+{% block content %}
+<section class="contents row container-fluid" >   
+    
+
+    <!-- FEATURED SECTION -->
+    <div class="featured pt-4 mx-auto col-lg-9 col-md-12 mb-3 mb-lg-0">
+        <div class="featured-breakfast">
+            <h2>Featured Breakfast</h2>
+
+            <!-- CARD -->
+            <div class="card mb-3">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="your-image-url.jpg" class="img-fluid rounded-start" alt="...">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">Recipe Name</h5>
+                      <p class="card-text">This is a short description of the recipe.</p>
+                      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- CARD -->
+            <div class="card mb-3">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="your-image-url.jpg" class="img-fluid rounded-start" alt="...">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">Recipe Name</h5>
+                      <p class="card-text">This is a short description of the recipe.</p>
+                      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              
+        </div>
+    
+        <div class="featured-lunch">
+            <h2 class="mt-5">Featured Lunch</h2>
+            <p class="lead">6 divs - lunch.</p>
+        </div>
+    
+        <div class="featured-dinner">
+                <h2 class="mt-5">Featured Dinner</h2>
+                <p class="lead">6 divs - dinner.</p>
+        </div>
+    
+        <div class="featured-dissert">
+                <h2 class="mt-5">Featured Dissert</h2>
+                <p class="lead">6 divs - dissert.</p>
+        </div>
+    </div>
+    
+    <!-- LOGIN BOX-->
+    <div class="login border pt-5 py-3 mx-auto col-lg-3 col-md-12">
+      <h2>Login</h2>
+    <form method="POST">
+      <div class="form-group">
+        <div class="form-floating mb-3">
+          <input type="email" name="user_email" class="form-control" id="floatingInputEmail" placeholder="name@example.com" required>
+          <label for="floatingInput">Email address</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="password" name="user_password" class="form-control" id="floatingPassword" placeholder="Password" required>
+          <label for="floatingPassword">Password</label>
+        </div>
+        <input type="submit" class="btn btn-primary my-2 mx-au" value="Login">
+      </div>
+              
+    </form>
+
+    <div class="px-5 py-2 mx-auto my-3">
+      <p>New user? <a href="/register"><button class="btn btn-success">REGISTER HERE</button></a></p>
+    </div>
+  </div>    
+</section>
+
+
+{% endblock %}

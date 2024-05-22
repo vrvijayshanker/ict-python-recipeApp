@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}All Recipes | Recipe App{% endblock %}
+
+{% block content %}
+<div class="recipes-header mb-3">
+    <h1 class="text-center">All Recipes</h1>
+    <nav class="navbar navbar-light bg-light">
+        <form class="form-inline d-flex mx-auto" id="search-form">
+          <input class="form-control mr-sm-2" type="search" id="search-input" placeholder="Search Names or Ingredients" aria-label="Search" style="min-width: 15rem;">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </nav>
+</div>
+
+<section class="card-box d-flex row m-auto justify-content-evenly" id="recipe-cards">
+    {% for row in data %}
+    <div class="card col-lg-6 col-md-4 col-sm-12 card-light m-2" data-title="{{ row[1] }}" data-ingredients="{{ row[2] }}" style="max-width: 35rem;">
+        <div class="card-header text-light bg-dark">Category : {{ row[7] }}</em></div>
+        <h2 class="card-title p-2">{{ row[1] }}</h2>
+        <p class="card-subtitle p-2"><em>Ingredients</em>: {{ row[2] }}</p>
+        <p class="card-subtitle px-2"><em>Instructions: </em></p>
+        <p class="card-text px-2">{{ row[3] }}</p>
+        <div class="card-footer">
+            <p class="card-subtitle"><em>Cooking Time</em>: {{ row[4] }}, <em>Serving Size</em>: {{ row[6] }}</p>
+        </div>
+    </div>
+      {% endfor %}
+  </section>
+
+  <!-- JScript for searching -->
+<script>
+    function filterRecipes() {
+        let query = document.getElementById('search-input').value.toLowerCase();
+        let cards = document.querySelectorAll('.card');
+        cards.forEach(function(card) {            
+            let title = card.getAttribute('data-title').toLowerCase();
+            let ingredients = card.getAttribute('data-ingredients').toLowerCase();
+            if (title.includes(query) || ingredients.includes(query)) {
+                card.style.display = '';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    document.getElementById('search-input').addEventListener('input', filterRecipes);
+    document.getElementById('search-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        filterRecipes();
+    });
+</script>
+
+
+{%endblock%}
+

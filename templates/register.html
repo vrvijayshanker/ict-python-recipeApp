@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}User Registration | Recipe App{% endblock %}
+
+{% block content %}
+
+{% if message %}
+    <script>
+      alert("{{ message }}");
+    </script>
+{% endif %}
+
+<div class="register-container mx-auto px-5" style="max-width: 50rem;">
+    <h3 class="text-center my-4">User Registration</h3>
+
+    <form method="POST">
+
+        <div class="form-floating mb-3">
+            <input type="text" name="user_name" class="form-control" id="floatingInputName" placeholder="Enter your name" required>
+            <label for="floatingInput">Full Name</label>
+         </div>
+
+        <div class="form-floating mb-3">
+           <input type="email" name="email" class="form-control" id="floatingInputEmail" placeholder="Enter your email" pattern="/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" required>
+           <label for="floatingInput">Email address</label>
+        </div>
+
+        <div class="form-floating mb-3">
+           <input type="password" name="password" class="form-control" id="password" placeholder="Enter strong password" required>
+           <label for="floatingPassword">Password</label>
+        </div>
+
+        <div class="form-floating mb-3">
+           <input type="password" name="re-password" class="form-control" id="re-password" placeholder="Re-enter password" required>
+           <label for="floatingPassword">Repeat Password</label>
+        </div>
+
+        <div id="password-message" style="color: red;"></div>
+
+        <div class="buttons text-center">
+            <input type="reset" value="Clear" class="btn btn-warning">
+            <input type="submit" value="Register" id="submit-button" class="btn btn-success">
+        </div>
+
+    </form>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    const password = document.getElementById('password');
+    const rePassword = document.getElementById('re-password');
+    const message = document.getElementById('password-message');
+    const submitButton = document.getElementById('submit-button');
+
+    function checkPasswords() {
+        if (password.value !== rePassword.value) {
+            message.textContent = 'Passwords do not match';
+            submitButton.disabled = true;
+        } else {
+            console.log(password, rePassword, 'else')
+            message.textContent = '';
+            submitButton.disabled = false;
+        }
+    }
+
+    password.addEventListener('input', checkPasswords);
+    rePassword.addEventListener('input', checkPasswords);
+});
+</script>
+
+{%endblock%}
